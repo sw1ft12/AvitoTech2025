@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Users (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(100) NOT NULL,
-    coins INT DEFAULT 0
+    coins INT DEFAULT 1000
     );
 
 CREATE TABLE IF NOT EXISTS Inventory (
