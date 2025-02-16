@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+  db:
+    build: db/
+    container_name: "avito_db"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=pg_db
+      - POSTGRES_PORT=5432
+      - PGDATA=/var/lib/postgresql/repository/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/repository/pgdata
+    ports:
+      - "5432:5432"
+    restart: always
+
+  app:
+    build: app/
+    container_name: "golang_app"
+    environment:
+      - SERVER_ADDRESS=0.0.0.0:8080
+      - POSTGRES_CONN=postgres://postgres:postgres@db:5432/pg_db
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  data_pgadmin:
